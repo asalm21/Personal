@@ -1,6 +1,4 @@
-
 #include "dsp.c"
-
 
 int main(){
     float X[4] = {1,2,3,4};
