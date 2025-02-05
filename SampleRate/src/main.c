@@ -1,32 +1,14 @@
 #include "dsp.c"
 
 int main(){
-    float X[4] = {1,2,3,4};
-    float H[2] = {3,4};
-    float Y[5];
+    uint32_t x[5] = {2,4,6,8,10};
+    uint32_t h[3] = {1,3,1};
+    uint32_t y[7];
+    uCon(x, 5, h, 3, y);
 
-    //Convolute with impulse signal
-    Con(
-        //Signal Input
-        X,
-        //Signal Size
-        4,
-        //Impluse Input
-        H,
-        //Impulse Size
-        2,
-        //Output
-        Y
-        );
+    for(int i = 0; i < 7; i++){
+        printf("%u ", y[i]);
+    }
 
-
-    //Print its values as coordinate points
-    print(
-          //Input Array
-          Y, 
-          //Number of Points
-          5
-        );
-
-    return 0;
+    printf("\n");
 }
