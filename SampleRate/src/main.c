@@ -1,14 +1,13 @@
 #include "dsp.c"
 
 int main(){
-    uint32_t x[5] = {2,4,6,8,10};
-    uint32_t h[3] = {1,3,1};
-    uint32_t y[7];
-    uCon(x, 5, h, 3, y);
+    float X[SAMP_COUNT];
+    cosine(X, SAMP_COUNT, 1, 1000, -.00025);
 
-    for(int i = 0; i < 7; i++){
-        printf("%u ", y[i]);
-    }
+    float Y[SAMP_COUNT];
+    sine(Y, SAMP_COUNT, 1, 1000, 0);
 
-    printf("\n");
+    float Z[SAMP_COUNT];
+    subtract(X, SAMP_COUNT, Y, SAMP_COUNT, Z);
+    print(Z, SAMP_COUNT);
 }

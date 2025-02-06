@@ -24,3 +24,9 @@ void floatZeros(float* arr, int size){
         arr[i] = 0;
     }
 }
+
+void floatFill(float* arr, int size, float N){
+    for(int i = 0; i < size; i++){
+        arr[i] = N;
+    }
+}

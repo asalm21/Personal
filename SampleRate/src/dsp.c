@@ -5,13 +5,12 @@
 #include "basic.c"
 
 #define SAMP_RATE 48000
-#define IMPULSE 5
 #define STEP (1.0 / SAMP_RATE)
-#define SAMP_COUNT 48
+#define SAMP_COUNT 250
 
 /////////////////////
 //Basic Operations//
-////////////////////
+///////////////////
 
 //Adds the samples in array A and array B (or vice versa) and places each sample in array C
 void add(float* A, int A_size, float* B, int B_size, float *C){
@@ -105,8 +104,12 @@ void divide(float* A, int A_size, float* B, int B_size, float *C){
         }
 }
 
+//////////////////////
+//Signal Generators//
+////////////////////
+
 //Generates user specified numbers samples of a sine wave of user specified frequency and fills them into a floating point array
-void sine(float* arr, int size, float freq){
+void sine(float* arr, int size, float amplitude, float freq, float shift){
     
     float time;
 
@@ -116,9 +119,43 @@ void sine(float* arr, int size, float freq){
         time = STEP * i;
 
         //Calculates each time value based on the cmath sine function
-        arr[i] = sin((2 * M_PI * freq) * time);
+        arr[i] = amplitude * sin((2 * M_PI * freq) * (time + shift));
     }
 }
+
+//Generates user specified numbers samples of a sine wave of user specified frequency and fills them into a floating point array
+void cosine(float* arr, int size, float amplitude, float freq, float shift){
+    
+    float time;
+
+    for(int i = 0; i < size; i++){
+
+        //Time value increments by the sample rate
+        time = STEP * i;
+
+        //Calculates each time value based on the cmath sine function
+        arr[i] = amplitude * cos((2 * M_PI * freq) * (time + shift));
+    }
+}
+
+//Generates user specified numbers samples of a sine wave of user specified frequency and fills them into a floating point array
+void exponential(float* arr, int size, float amplitude, float rate, float shift){
+    
+    float time;
+
+    for(int i = 0; i < size; i++){
+
+        //Time value increments by the sample rate
+        time = STEP * i;
+
+        //Calculates each time value based on the cmath sine function
+        arr[i] = amplitude * exp(rate * (time + shift));
+    }
+}
+
+///////////////////
+///Miscellaneous//
+/////////////////
 
 void ustereo(uint32_t* mono, int m_size, uint32_t* stereo, int copy){
     int s_size = (m_size * 2);
@@ -191,6 +228,8 @@ void toUnsigned(float* fArr, uint32_t* uArr){
     }
 
 }
+
+
 
 void Con(float* x, int x_size, float* h, int h_size, float* y) {
    
